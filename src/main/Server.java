@@ -15,7 +15,7 @@ public class Server {
 				ServerSocket ss = new ServerSocket(9800);
 				Socket soc = ss.accept();
 				System.out.println("Connection Established");
-				DataInputStream dIn = new DataInputStream(socket.getInputStream());
+				DataInputStream dIn = new DataInputStream(soc.getInputStream());
 				boolean done = false;
 				while(!done) {
 				  byte messageType = dIn.readByte();
