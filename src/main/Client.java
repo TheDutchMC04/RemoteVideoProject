@@ -5,6 +5,9 @@ import java.net.Socket;
 
 public class Client {
 	
+	private static String videoHeader = "https://www.youtube.com/watch?v=";
+	private static String[] videoIDs;
+	
 	public static void main(String[] args) {
 		try {
 			System.out.println("Client Started");
@@ -14,8 +17,5 @@ public class Client {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		private static String videoHeader = "https://www.youtube.com/watch?v=";
-		private static String[] videoIDs;
 	}
 }
