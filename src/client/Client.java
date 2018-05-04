@@ -2,17 +2,21 @@ package client;
 
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
 	
 	public static void main(String[] args) {
-		Connect();
+		
+		Client ConnectObj = new Client();
+		ConnectObj.Connect();
 	}
 	
-	static void Connect() {
+	void Connect() {
 		try {
 			System.out.println("Client Started");
 			Socket soc = new Socket("localhost", 9800);
+			boolean Connected = true;
 			DataOutputStream dOut = new DataOutputStream(soc.getOutputStream());
 			dOut.writeByte(1);
 			dOut.writeUTF("Sending a message to server... Waiting for response.");
