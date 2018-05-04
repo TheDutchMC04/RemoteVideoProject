@@ -6,6 +6,10 @@ import java.net.Socket;
 public class Client {
 	
 	public static void main(String[] args) {
+		Connect();
+	}
+	
+	static void Connect() {
 		try {
 			System.out.println("Client Started");
 			Socket soc = new Socket("localhost", 9800);
