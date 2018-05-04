@@ -15,7 +15,7 @@ public class Client {
 	void Connect() {
 		try {
 			System.out.println("Client Started");
-			Socket soc = new Socket("85.144.251.7", 9800);
+			Socket soc = new Socket("localhost", 9800);
 			boolean Connected = true;
 			DataOutputStream dOut = new DataOutputStream(soc.getOutputStream());
 			dOut.writeByte(1);
