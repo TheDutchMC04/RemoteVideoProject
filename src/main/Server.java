@@ -14,6 +14,7 @@ public class Server {
 				System.out.println("Waiting for client...");
 				ServerSocket ss = new ServerSocket(9800);
 				Socket soc = ss.accept();
+				System.out.println("Connection Established");
 				DataInputStream dIn = new DataInputStream(socket.getInputStream());
 				boolean done = false;
 				while(!done) {
@@ -28,7 +29,6 @@ public class Server {
 				    done = true;
 				  }
 				}
-				System.out.println("Connection Established");
 			}
 			catch (IOException e) {
 				//TODO Auto Generated Catch block
