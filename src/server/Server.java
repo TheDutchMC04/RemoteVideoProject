@@ -6,8 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-	
-	private static String videoHeader = "https://www.youtube.com/watch?v=";
 		
 	public static void main(String[] args) {
 		
@@ -36,6 +34,7 @@ public class Server {
 			}
 			catch (IOException e) {
 				//TODO Auto Generated Catch block
+				System.out.println("Error: IOExcepton");
 				e.printStackTrace();
 			}
 	}

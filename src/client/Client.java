@@ -23,6 +23,7 @@ public class Client {
 			dOut.flush();
 		}
 		catch (Exception e) {
+			System.out.println("Error");
 			e.printStackTrace();
 		}
 	}
