@@ -1,82 +1,57 @@
 package server;
 
-import javafx.util.Pair;
-
 import java.io.DataInputStream;
-import java.io.IOException;
+import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Server {
-<<<<<<< HEAD
+import server.gui.ServerGUI;
+
+public class Server extends Thread {
+	
+	private static String videoHeader = "https://www.youtube.com/watch?v=";
+	private static List<String> currentAccounts = new ArrayList<String>();
+	public static ServerSocket serverSocket = null;
+	public static Socket socket = null;
+	public static int host;
+	
+	public Server (int host) {
 		
-	public static void main(String[] args) {
-		
-		Server letConnectObj = new Server();
-		letConnectObj.letConnect();
+		this.host = host;
 	}
 	
-	void letConnect() {
+	public static void StartServer(int host) {
 		try {
 			System.out.println("Waiting for client...");
-			ServerSocket ss = new ServerSocket(9800);
-			Socket soc = ss.accept();
-			System.out.println("Connection Established");
-			DataInputStream dIn = new DataInputStream(soc.getInputStream());
+			serverSocket = new ServerSocket(host);
+			socket = serverSocket.accept();
+
+			DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+			
 			boolean done = false;
 			while(!done) {
-			  byte messageType = dIn.readByte();
+			  byte messageType = dataIn.readByte();
 			  switch(messageType) {
 			  case 1: 
-			    System.out.println("Message recieved from the client.");
+				  String name = dataIn.readUTF();
+				  if(currentAccounts.contains(name)) {System.out.println(name + " has already established a connection. Duplicate Exception!");}
+				  else {System.out.println(name + " has established a connection."); currentAccounts.add(name);}
 			    break;
 				 default:
 				   done = true;
 				 }
+			  
 				}
+			
 			}
-			catch (IOException e) {
-				//TODO Auto Generated Catch block
-				System.out.println("Error: IOExcepton");
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 	}
+	
+	@Override
+	public void run () {StartServer(host);}
 }
-=======
-
-    private static String videoHeader = "https://www.youtube.com/watch?v=";
-
-    Map<String, Pair<String, Integer>> links;
-
-    public static void main(String[] args) {
-
-        Server letConnectObj = new Server();
-        letConnectObj.letConnect();
-    }
-
-    void letConnect() {
-        try {
-            System.out.println("Waiting for client...");
-            ServerSocket ss = new ServerSocket(9800);
-            Socket soc = ss.accept();
-            System.out.println("Connection Established");
-            DataInputStream dIn = new DataInputStream(soc.getInputStream());
-            boolean done = false;
-            while (!done) {
-                byte messageType = dIn.readByte();
-                switch (messageType) {
-                    case 1:
-                        System.out.println("Message recieved from the client.");
-                        break;
-                    default:
-                        done = true;
-                }
-                dIn.readUTF();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
->>>>>>> e8fcedb77f91251ed58e459296e18079ff624f83
