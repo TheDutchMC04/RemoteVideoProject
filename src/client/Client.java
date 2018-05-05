@@ -2,8 +2,12 @@ package client;
 
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.UUID;
 
 public class Client {
+
+	public static final UUID uuid = UUID.randomUUID();
+	private static String links = "https://www.youtube.com/watch?v=07VosGU5uUY&list=PLKfBeWpy5-kTTuUft2-FwZxRjKGHS46Ci&index=12";
 	
 	public static void main(String[] args) {
 		
@@ -15,10 +19,10 @@ public class Client {
 		try {
 			System.out.println("Client Started");
 			Socket soc = new Socket("localhost", 9800);
-			boolean Connected = true;
 			DataOutputStream dOut = new DataOutputStream(soc.getOutputStream());
 			dOut.writeByte(1);
-			dOut.writeUTF("Sending a message to server... Waiting for response.");
+			dOut.writeUTF(uuid.toString());
+			dOut.writeUTF(links);
 			dOut.flush();
 		}
 		catch (Exception e) {
