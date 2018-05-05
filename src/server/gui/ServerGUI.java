@@ -97,7 +97,7 @@ public class ServerGUI {
 		//LISTENERS
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
+			public void keyTyped(KeyEvent arg0) {
 				
 				lblErrorText.setText("");
 				if(textField.getText().toCharArray().length == 4) {textField.setEnabled(false); btnCancel.setEnabled(true); btnStart.setEnabled(true);} 

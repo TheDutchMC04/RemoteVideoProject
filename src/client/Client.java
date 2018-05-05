@@ -4,20 +4,23 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
-public class Client {
+public class Client extends Thread {
 	
-	private String name = "TheDutchMC04";
+	public String name;
+	public String IP;
+	public int host;
 	
-	public static void main(String[] args) throws InterruptedException {
+	public Client (String name, String IP, int host) {
 		
-		Client client = new Client();
-		client.Connect();
-
+		this.name = name;
+		this.IP = IP;
+		this.host = host;
+		
 	}
 	
-	void Connect() {
+	void Connect(String name, String IP, int host) {
 		try {
-			Socket socket = new Socket("localhost", 9800);			
+			Socket socket = new Socket(IP, host);			
 			
 			DataInputStream dataIn = new DataInputStream(socket.getInputStream());
 			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
@@ -30,4 +33,7 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void run () {Connect(name, IP, host);}
 }
