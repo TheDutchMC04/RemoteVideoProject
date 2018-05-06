@@ -10,25 +10,22 @@
 	</head>
 	<body>
 		<div id="header">
-			<p id="titel"> Webinterace RemoteVideoProject Server </p>
+			<p id="title"> Webinterace RemoteVideoProject</p>
+			<hr>
 			<p id="subtitle"> By TheDutchMC76, KaptainWutax, StrikerRocker </p>
 		</div>
-		<div id="pageId">
-			<p> Login </p>
+		<div id="pageID">
+			<p> > Login </p>
+			<hr>
 		</div>
 		<div id="loginSection">
-			<form action="action_page.php">
-				<div class="container">
-					<label for="uname"><b>Username</b></label>
-					<input type="text" placeholder="Enter Username" name="uname" required>
-					<label for="psw"><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" name="psw" required>
-					<button type="submit">Login</button>
-					<label>
-						<input type="checkbox" checked="checked" name="remember"> Remember me
-					</label>
-				</div>
+			<form name="login">
+				Username:<input type="text" name="userid"/>
+				Password:<input type="password" name="pswrd"/>
+				<input type="button" onclick="check(this.form)" value="Login"/>
+				<input type="reset" value="Cancel"/>
 			</form>
+			<script src="scripts/login.js"></script>
 		</div>
 	</body>
 </html>

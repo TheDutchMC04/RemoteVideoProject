@@ -1,7 +1,32 @@
 html {
 	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	background-color: #c0c0c0;
+}
+
+div#header > p {
+	text-align: center;
 }
 
 div#header > p#title {
-	font-size: 28px;
+	font-size: 26px;
+	margin: 0;
+}
+
+div#header > hr {
+	width: 27%;
+	height: 1px;
+}
+
+div#header > p#subtitle {
+	margin-top: 0;
+	font-size: 20px;
+}
+
+div#pageID > p {
+	margin-left: 10px;
+}
+
+div#pageID > hr {
+	height: 1px;
 }
