@@ -22,18 +22,20 @@ public class ClientGUI {
 	private JTextField textFieldIP;
 	private JTextField textFieldHost;
 	
+	private String ErrorText;
+	
 	public String name;
 	public String IPaddress = "localhost";
 
-	public static void main(String[] args) {
+	public void initApp(String Error) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				
 				try {
-					ClientGUI window = new ClientGUI();
-					window.frame.setVisible(true);
-					
+						ClientGUI window = new ClientGUI(Error);
+						window.frame.setVisible(true);
+						
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,7 +45,8 @@ public class ClientGUI {
 		});
 	}
 
-	public ClientGUI() {
+	public ClientGUI(String ErrorText) {
+		this.ErrorText = ErrorText;
 		initialize();
 	}
 
@@ -71,7 +74,7 @@ public class ClientGUI {
 		frame.getContentPane().add(lblClient);
 		
 		//DYNAMIC LABELS		
-		JLabel lblErrorText = new JLabel("");
+		JLabel lblErrorText = new JLabel(ErrorText);
 		lblErrorText.setBounds(250, 256, 538, 14);
 		frame.getContentPane().add(lblErrorText);
 		
@@ -153,6 +156,7 @@ public class ClientGUI {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				if(!btnStart.isEnabled()) {return;}
 				name = textFieldName.getText();
 				Boolean validHost = true;
 				
@@ -170,7 +174,7 @@ public class ClientGUI {
 					btnCancel.setEnabled(false);
 					textFieldHost.setEnabled(false);
 					frame.setVisible(false);
-					new AccountGUI(name, IPaddress, Integer.parseInt(textFieldHost.getText())).initApp();
+					new MenuGUI(name, IPaddress, Integer.parseInt(textFieldHost.getText())).initApp();
 
 				}
 				
@@ -189,6 +193,7 @@ public class ClientGUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				if(!btnCancel.isEnabled()) {return;}
 				textFieldHost.setText("");
 				textFieldHost.setEnabled(true);
 				textFieldName.setText("");

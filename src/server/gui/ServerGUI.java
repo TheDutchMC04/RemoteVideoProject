@@ -31,7 +31,7 @@ public class ServerGUI {
 	
 	public String host;
 
-	public static void main (String[] args) {
+	public void initApp () {
 		
 		EventQueue.invokeLater(new Thread() {
 			
@@ -110,6 +110,7 @@ public class ServerGUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				if(!btnCancel.isEnabled()) {return;}
 				textField.setText("");
 				textField.setEnabled(true);
 				btnStart.setEnabled(false);
@@ -122,6 +123,7 @@ public class ServerGUI {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				if(!btnStart.isEnabled()) {return;}
 				Boolean validHost = true;
 				
 				for(char c : textField.getText().toCharArray()) {

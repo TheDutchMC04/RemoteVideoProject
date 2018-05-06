@@ -2,6 +2,8 @@ package client.gui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,27 +12,26 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import client.Client;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+public class MenuGUI {
 
-public class AccountGUI {
-
-	private JFrame frame;
-	static String name;
-	static String IP;
-	static int host;
+	public JFrame frame;
+	String name;
+	String IP;
+	int host;
 	
 
 	public void initApp() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AccountGUI window = new AccountGUI(name, IP, host);
+					MenuGUI window = new MenuGUI(name, IP, host);
 					window.frame.setVisible(true);
+					Client.Connect(name, IP, host, window);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,7 +39,7 @@ public class AccountGUI {
 		});
 	}
 
-	public AccountGUI(String name, String IP, int host) {
+	public MenuGUI(String name, String IP, int host) {
 		this.name = name;
 		this.IP = IP;
 		this.host = host;
@@ -69,6 +70,27 @@ public class AccountGUI {
 		
 		//BUTTONS
 		JButton btnAdd = new JButton("Add");
+		btnAdd.setBounds(388, 168, 89, 23);
+		frame.getContentPane().add(btnAdd);
+		btnAdd.setEnabled(true);
+		
+		JButton btnExit = new JButton("EXIT");
+		btnExit.setBounds(710, 11, 89, 23);
+		frame.getContentPane().add(btnExit);
+		
+		JButton btnStart = new JButton("START");
+		btnStart.setBounds(10, 11, 89, 23);
+		frame.getContentPane().add(btnStart);
+		
+		//LISTENERS
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.setVisible(false);
+				Client.disconnect(name);
+			}
+		});
+		
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -77,9 +99,14 @@ public class AccountGUI {
 
 			}
 		});
-		btnAdd.setBounds(388, 168, 89, 23);
-		frame.getContentPane().add(btnAdd);
-		btnAdd.setEnabled(true);
+		
+		frame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
+				Client.disconnect(name);
+			}
+		});
 	}
-
 }
+
+

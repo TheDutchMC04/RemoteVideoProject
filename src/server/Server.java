@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.gui.ClientGUI;
 import server.gui.ServerGUI;
 import server.gui.ServerThread;
 
@@ -15,6 +16,12 @@ public class Server extends Thread {
 	public static ServerSocket serverSocket = null;
 	public static Socket socket = null;
 	public static int host;
+	
+	public static void main(String[] args) {
+		
+		new ServerGUI().initApp();
+		
+	}
 	
 	public Server (int host) {
 		

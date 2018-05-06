@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 import client.gui.AccountGUI;
+import client.gui.ClientGUI;
+import client.gui.MenuGUI;
 import server.data.Write;
 
 public class Client {
@@ -15,8 +17,13 @@ public class Client {
 	public static int host;
 	public static Socket socket;
 
+	public static void main(String[] args) {
+		
+		new ClientGUI(null).initApp(null);
+		
+	}
 	
-	public static void Connect(String ename, String eIP, int ehost) {
+	public static void Connect(String ename, String eIP, int ehost, MenuGUI instance) {
 		try {
 			
 			name = ename;
@@ -32,14 +39,18 @@ public class Client {
 			dataOut.flush();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+
+			instance.frame.setVisible(false);
+			new ClientGUI(null).initApp("Could not establish a connection.");
+
+			//e.printStackTrace();
 		}
 	}
 	
 	public static void addVideo(String name, String video) {		
 		
-		try {
-			socket = new Socket(IP, host);	
+		try {	
+			socket = new Socket(IP, host);
 			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
 			dataOut.writeByte(2);
 			dataOut.writeUTF(name);
@@ -50,4 +61,22 @@ public class Client {
 		}
 	
 	}
+	
+	public static void disconnect(String name) {
+		
+		try {
+			socket = new Socket(IP, host);
+			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+			dataOut.writeByte(3);
+			dataOut.writeUTF(name);
+			dataOut.flush();
+			socket.close();
+			new ClientGUI(null).initApp("Client left the wormhole.");
+	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
