@@ -16,6 +16,8 @@ import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MenuGUI {
 
@@ -25,13 +27,14 @@ public class MenuGUI {
 	int host;
 	
 
-	public void initApp() {
+	public void initApp(Boolean connect) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					MenuGUI window = new MenuGUI(name, IP, host);
-					window.frame.setVisible(true);
-					Client.Connect(name, IP, host, window);
+					window.frame.setVisible(true);					
+					if(connect) {Client.Connect(name, IP, host, window);}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,6 +86,14 @@ public class MenuGUI {
 		frame.getContentPane().add(btnStart);
 		
 		//LISTENERS
+		btnStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.setVisible(false);
+				new AccountGUI(name, IP, host).initApp();
+			}
+		});
+		
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -97,13 +108,6 @@ public class MenuGUI {
 				String video = textFieldVideoAD.getText();
 				Client.addVideo(name, video);
 
-			}
-		});
-		
-		frame.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentHidden(ComponentEvent arg0) {
-				Client.disconnect(name);
 			}
 		});
 	}

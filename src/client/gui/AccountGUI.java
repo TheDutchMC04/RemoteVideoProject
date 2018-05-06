@@ -16,6 +16,11 @@ import java.awt.event.MouseEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.JList;
+import javax.swing.JTextPane;
+import javax.swing.JScrollBar;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
 
 public class AccountGUI {
 
@@ -60,26 +65,31 @@ public class AccountGUI {
 		lblClient.setBounds(226, 11, 394, 64);
 		frame.getContentPane().add(lblClient);
 		
-		//TEXT FIELDS
-		JTextField textFieldVideoAD = new JTextField();
-		textFieldVideoAD.setBounds(226, 106, 411, 38);
-		frame.getContentPane().add(textFieldVideoAD);
-		textFieldVideoAD.setColumns(10);
-		textFieldVideoAD.setEnabled(true);
-		
 		//BUTTONS
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addMouseListener(new MouseAdapter() {
+		JButton btnExit = new JButton("EXIT");
+		btnExit.setBounds(710, 11, 89, 23);
+		frame.getContentPane().add(btnExit);
+		
+		JButton btnBack = new JButton("BACK");
+		btnBack.setBounds(10, 11, 89, 23);
+		frame.getContentPane().add(btnBack);
+		
+		//LISTENERS
+		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				String video = textFieldVideoAD.getText();
-				Client.addVideo(name, video);
-
+				frame.setVisible(false);
+				new MenuGUI(name, IP, host).initApp(false);
 			}
 		});
-		btnAdd.setBounds(388, 168, 89, 23);
-		frame.getContentPane().add(btnAdd);
-		btnAdd.setEnabled(true);
-	}
+		
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.setVisible(false);
+				Client.disconnect(name);
+			}
+		});
 
+	}
 }

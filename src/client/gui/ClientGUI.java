@@ -174,7 +174,7 @@ public class ClientGUI {
 					btnCancel.setEnabled(false);
 					textFieldHost.setEnabled(false);
 					frame.setVisible(false);
-					new MenuGUI(name, IPaddress, Integer.parseInt(textFieldHost.getText())).initApp();
+					new MenuGUI(name, IPaddress, Integer.parseInt(textFieldHost.getText())).initApp(true);
 
 				}
 				
