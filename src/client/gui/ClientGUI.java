@@ -15,9 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import client.Client;
-import server.Server;
-
 public class ClientGUI {
 
 	private JFrame frame;
@@ -149,7 +146,6 @@ public class ClientGUI {
 				    }
 
 				if(!characters.isEmpty()) {IPaddress = "localhost";}
-				else if (characters.isEmpty()) {IPaddress = IPaddress;}
 			}
 		});
 		
@@ -173,7 +169,9 @@ public class ClientGUI {
 					btnStart.setEnabled(false);
 					btnCancel.setEnabled(false);
 					textFieldHost.setEnabled(false);
-					new Thread(new Client(name, IPaddress, Integer.parseInt(textFieldHost.getText()))).start();
+					frame.setVisible(false);
+					new AccountGUI(name, IPaddress, Integer.parseInt(textFieldHost.getText())).initApp();
+
 				}
 				
 				else if (!validHost) {

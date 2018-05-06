@@ -33,7 +33,7 @@ public class ServerGUI {
 
 	public static void main (String[] args) {
 		
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Thread() {
 			
 			public void run() {
 				

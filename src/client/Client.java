@@ -2,26 +2,28 @@ package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
-public class Client extends Thread {
+import client.gui.AccountGUI;
+import server.data.Write;
+
+public class Client {
 	
-	public String name;
-	public String IP;
-	public int host;
+	public static String name;
+	public static String IP;
+	public static int host;
+	public static Socket socket;
+
 	
-	public Client (String name, String IP, int host) {
-		
-		this.name = name;
-		this.IP = IP;
-		this.host = host;
-		
-	}
-	
-	void Connect(String name, String IP, int host) {
+	public static void Connect(String ename, String eIP, int ehost) {
 		try {
-			Socket socket = new Socket(IP, host);			
 			
+			name = ename;
+			IP = eIP;
+			host = ehost;			
+			socket = new Socket(IP, host);		
+		
 			DataInputStream dataIn = new DataInputStream(socket.getInputStream());
 			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
 			
@@ -34,6 +36,18 @@ public class Client extends Thread {
 		}
 	}
 	
-	@Override
-	public void run () {Connect(name, IP, host);}
+	public static void addVideo(String name, String video) {		
+		
+		try {
+			socket = new Socket(IP, host);	
+			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+			dataOut.writeByte(2);
+			dataOut.writeUTF(name);
+			dataOut.writeUTF(video);
+			dataOut.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
 }

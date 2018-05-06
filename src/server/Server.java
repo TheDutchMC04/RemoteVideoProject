@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import server.gui.ServerGUI;
+import server.gui.ServerThread;
 
 public class Server extends Thread {
 	
-	private static String videoHeader = "https://www.youtube.com/watch?v=";
-	private static List<String> currentAccounts = new ArrayList<String>();
 	public static ServerSocket serverSocket = null;
 	public static Socket socket = null;
 	public static int host;
@@ -26,30 +25,16 @@ public class Server extends Thread {
 		try {
 			System.out.println("Waiting for client...");
 			serverSocket = new ServerSocket(host);
+			
+			while(true) {
 			socket = serverSocket.accept();
-
-			DataInputStream dataIn = new DataInputStream(socket.getInputStream());
-			DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
-			
-			boolean done = false;
-			while(!done) {
-			  byte messageType = dataIn.readByte();
-			  switch(messageType) {
-			  case 1: 
-				  String name = dataIn.readUTF();
-				  if(currentAccounts.contains(name)) {System.out.println(name + " has already established a connection. Duplicate Exception!");}
-				  else {System.out.println(name + " has established a connection."); currentAccounts.add(name);}
-			    break;
-				 default:
-				   done = true;
-				 }
-			  
-				}
-			
+			new ServerThread(socket).start();
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
