@@ -1,5 +1,7 @@
 package client.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -9,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
+import chrriis.dj.nativeswing.swtimpl.components.JWebBrowserWindow;
 import client.Client;
 
 import java.awt.event.MouseAdapter;
@@ -21,6 +25,7 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.JPanel;
 
 public class AccountGUI {
 
@@ -28,7 +33,6 @@ public class AccountGUI {
 	static String name;
 	static String IP;
 	static int host;
-	
 
 	public void initApp() {
 		EventQueue.invokeLater(new Runnable() {
@@ -73,6 +77,15 @@ public class AccountGUI {
 		JButton btnBack = new JButton("BACK");
 		btnBack.setBounds(10, 11, 89, 23);
 		frame.getContentPane().add(btnBack);
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.setBounds(191, 86, 482, 274);
+		frame.getContentPane().add(panel);
+
+		JWebBrowser wb = new JWebBrowser();
+		wb.setBarsVisible(false);
+		wb.navigate(Client.header + "bcRDJFuyNw4");
+		panel.add(wb);
 		
 		//LISTENERS
 		btnBack.addMouseListener(new MouseAdapter() {

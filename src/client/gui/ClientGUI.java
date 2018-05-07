@@ -140,7 +140,7 @@ public class ClientGUI {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 				
-				IPaddress = textFieldName.getText();
+				IPaddress = textFieldIP.getText();
 				
 				List<Character> characters = new ArrayList<>();
 				  for (char c : IPaddress.toCharArray()) {
@@ -158,6 +158,7 @@ public class ClientGUI {
 				
 				if(!btnStart.isEnabled()) {return;}
 				name = textFieldName.getText();
+				IPaddress = textFieldIP.getText();
 				Boolean validHost = true;
 				
 				for(char c : textFieldHost.getText().toCharArray()) {
@@ -174,7 +175,8 @@ public class ClientGUI {
 					btnCancel.setEnabled(false);
 					textFieldHost.setEnabled(false);
 					frame.setVisible(false);
-					new MenuGUI(name, IPaddress, Integer.parseInt(textFieldHost.getText())).initApp(true);
+					System.out.println(IPaddress);
+					new MenuGUI(name, IPaddress.trim(), Integer.parseInt(textFieldHost.getText())).initApp(true);
 
 				}
 				

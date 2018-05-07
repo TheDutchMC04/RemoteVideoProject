@@ -16,6 +16,8 @@ public class Client {
 	public static String IP;
 	public static int host;
 	public static Socket socket;
+	
+	public static String header = "https://www.youtube.com/watch_popup?v=";
 
 	public static void main(String[] args) {
 		
